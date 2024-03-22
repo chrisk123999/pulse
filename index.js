@@ -6,6 +6,9 @@ let client = new Client({'intents': [GatewayIntentBits.Guilds]});
 client.commands = new Collection();
 let foldersPath = path.join(__dirname, 'commands');
 let commandFolders = fs.readdirSync(foldersPath);
+async function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
 for (let folder of commandFolders) {
 	let commandsPath = path.join(foldersPath, folder);
 	let commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -36,13 +39,18 @@ client.once(Events.ClientReady, readyClient => {
     console.log('Ready! Logged in as ' + readyClient.user.tag);
     client.user.setStatus('online');
 });
-client.on(Events.ThreadCreate, (thread, newlyCreated) => {
+client.on(Events.ThreadCreate, async (thread, newlyCreated) => {
     if (!newlyCreated) return;
+	await sleep(500);
     if (thread.parentId === bugReports) {
+		console.log('Bug Report Created: ' + thread.name);
         thread.send({'embeds': [bugReportEmbed]});
     } else if (thread.parentId === featureRequests) {
+		console.log('Feature Request Created: ' + thread.name);
         thread.send({'embeds': [featureRequestEmbed]});
-    }
+    } else {
+		console.log('Other Thread Created:' + thread.name);
+	}
 });
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
