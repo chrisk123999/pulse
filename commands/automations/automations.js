@@ -20,7 +20,6 @@ module.exports = {
                 .setRequired(true)),
         async execute(interaction) {
             let itemName = interaction.options.getString('name');
-            console.log(itemName);
             let items = fuse.search(itemName, {'limit': 10});
             if (!items.length) {
                 await interaction.reply('No items found!');
