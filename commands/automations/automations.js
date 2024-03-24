@@ -7,7 +7,7 @@ let options = {
         'name'
     ],
     'includeScore': true,
-    'threshold': 0.1
+    'threshold': 0.3
 };
 let fuse = new Fuse(items, options);
 module.exports = {
@@ -20,8 +20,8 @@ module.exports = {
                 .setRequired(true)),
         async execute(interaction) {
             let itemName = interaction.options.getString('name');
-            let items = fuse.search(itemName, {'limit': 3});
-            console.log(items);
+            console.log(itemName);
+            let items = fuse.search(itemName, {'limit': 10});
             if (!items.length) {
                 await interaction.reply('No items found!');
                 return;
@@ -40,8 +40,8 @@ module.exports = {
             }
             let embed = new EmbedBuilder()
                 .setColor('DarkGreen')
-                .setTitle('Found Items:')
-                .setDescription(message);
+                .setTitle('Found Items (' + itemName + '):')
+                .setDescription(message)
             await interaction.reply({'embeds': [embed]});
         }
 }
