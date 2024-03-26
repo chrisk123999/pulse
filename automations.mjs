@@ -24,32 +24,30 @@ let ignoredFolders = [
     'misc-spell-items',
     'misc-monster-features'
 ];
-async function updateItems() {
-    fs.rmSync('./files', {'recursive': true, 'force': true});
-    await Promise.all([cprLink, miscLink, gpsLink].map(url => download(url, './files', {'extract': true})));
-    let packFolders = fs.readdirSync('./files/packs').filter(i => !ignoredFolders.includes(i));
-    await Promise.all(packFolders.map(async folder => await extractPack('./files/packs/' + folder, './packItems/' + folder)));
-    packFolders.forEach(folder => {
-        let files = fs.readdirSync('./packItems/' + folder);
-        files.forEach(file => {
-            let item = JSON.parse(fs.readFileSync('./packItems/' + folder + '/' + file, 'utf8').toString());
-            let itemData = {
-                'name': item.name,
-                'source': folder
-            };
-            let version;
-            if (folder.includes('cpr-')) {
-                version = item.flags?.['chris-premades']?.info?.version;
-            } else if (folder.includes('gpr-')) {
-                version = item.system.source?.custom;
-            }
-            if (version) itemData.version = version;
-            data.items.push(itemData);
-        });
-    })
-    let json = JSON.stringify(data);
-    fs.rmSync('items.json', {'force': true});
-    fs.writeFileSync('items.json', json, 'utf8');
-    console.log('There are ' + data.items.length + ' items!');
+export async function updateItems() {
+    console.log('Updating automations command!');
+    try {
+        fs.rmSync('./files', {'recursive': true, 'force': true});
+        await Promise.all([cprLink, miscLink, gpsLink].map(url => download(url, './files', {'extract': true})));
+        let packFolders = fs.readdirSync('./files/packs').filter(i => !ignoredFolders.includes(i));
+        await Promise.all(packFolders.map(async folder => await extractPack('./files/packs/' + folder, './packItems/' + folder)));
+        packFolders.forEach(folder => {
+            let files = fs.readdirSync('./packItems/' + folder);
+            files.forEach(file => {
+                let item = JSON.parse(fs.readFileSync('./packItems/' + folder + '/' + file, 'utf8').toString());
+                let itemData = {
+                    'name': item.name,
+                    'source': folder
+                };
+                data.items.push(itemData);
+            });
+        })
+        let json = JSON.stringify(data);
+        fs.rmSync('items.json', {'force': true});
+        fs.writeFileSync('items.json', json, 'utf8');
+        console.log('There are ' + data.items.length + ' items!');
+    } catch (error) {
+        console.error(error);
+    }
+    console.log('Update complete.')
 }
-updateItems();

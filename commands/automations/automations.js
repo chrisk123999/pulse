@@ -29,7 +29,6 @@ module.exports = {
             for (let i of items) {
                 if (i.item.source.includes('cpr-')) {
                     message += '\nChris\'s Premades: ' + i.item.name;
-                    if (i.item.version) message += ' (' + i.item.version + ')';
                 } else if (i.item.source.includes('gps-')) {
                     message += '\nGambit\'s Premades: ' + i.item.name;
                 } else if (i.item.source.includes('misc-')) {
