@@ -37,6 +37,13 @@ async function updateItems() {
                 'name': item.name,
                 'source': folder
             };
+            let version;
+            if (folder.includes('cpr-')) {
+                version = item.flags?.['chris-premades']?.info?.version;
+            } else if (folder.includes('gpr-')) {
+                version = item.system.source?.custom;
+            }
+            if (version) itemData.version = version;
             data.items.push(itemData);
         });
     })
