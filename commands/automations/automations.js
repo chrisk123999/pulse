@@ -41,7 +41,7 @@ module.exports = {
             let embed = new EmbedBuilder()
                 .setColor('DarkGreen')
                 .setTitle('Found Items (' + itemName + '):')
-                .setDescription(message)
+                .setDescription(message);
             await interaction.reply({'embeds': [embed]});
         }
 }
