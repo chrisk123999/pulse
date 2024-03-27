@@ -67,8 +67,8 @@ export async function updateMotoItems() {
                 }
                 let ddbiPosition = ddbiPositions[file] ?? 4;
                 let pissPosition = pissPositions[file] ?? 6;
-                if (row[ddbiPosition] === '☑') data.items.push({'name': name, 'source': 'ddbi'});
-                if (row[pissPosition] === '☑') data.items.push({'name': name, 'source': 'piss'});
+                if (row[ddbiPosition] === '☑' && !data.items.find(i => i.name === name && i.source === 'ddbi')) data.items.push({'name': name, 'source': 'ddbi'});
+                if (row[pissPosition] === '☑' && !data.items.find(i => i.name === name && i.source === 'ddbi')) data.items.push({'name': name, 'source': 'piss'});
             }
         }));
         let json = JSON.stringify(data);
