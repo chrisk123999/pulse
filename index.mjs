@@ -8,6 +8,7 @@ import {updateItems} from './automations.mjs';
 import {createRequire} from 'module';
 import {fileURLToPath} from 'url';
 import {updateMotoItems} from './moto.mjs';
+console.log('----- Starting -----');
 let srequire = createRequire(import.meta.url);
 let {token, cprGuildId, cprBugReports, cprFeatureRequests} = srequire('./config.json');
 let __filename = fileURLToPath(import.meta.url);
