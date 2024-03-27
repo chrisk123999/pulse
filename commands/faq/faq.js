@@ -164,9 +164,10 @@ module.exports = {
             subCommand
                 .setName('video')
                 .setDescription('Links to macro video FAQ.')),
-        async execute(interaction) {
-            let subCommand = interaction.options.getSubcommand();
-            let embed = createEmbed(embeds[subCommand]);
-            await interaction.reply({'embeds': [embed]});
-    }
+    async execute(interaction) {
+        let subCommand = interaction.options.getSubcommand();
+        let embed = createEmbed(embeds[subCommand]);
+        await interaction.reply({'embeds': [embed]});
+    },
+    'guild': 'cpr'
 }
