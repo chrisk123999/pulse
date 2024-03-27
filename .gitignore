@@ -5,3 +5,5 @@ package-lock.json
 files/
 packItems/
 items.json
+motoFiles/
+motoItems.json

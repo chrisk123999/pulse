@@ -1,6 +1,7 @@
 let {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 let data = require('../../items.json');
-let items = data.items;
+let data2 = require('../../motoItems.json');
+let items = data.items.concat(data2.items);
 let Fuse = require('fuse.js');
 let options = {
     'keys': [
@@ -33,6 +34,10 @@ module.exports = {
                 message += '\nGambit\'s Premades: ' + i.item.name;
             } else if (i.item.source.includes('misc-')) {
                 message += '\nMidi Item Showcase: ' + i.item.name;
+            } else if (i.item.source === 'ddbi') {
+                message += '\nD&D Beyond Importer: ' + i.item.name;
+            } else if (i.item.source === 'piss') {
+                message += '\nItems & Scripts Showcase: ' + i.item.name;
             } else {
                 message += '\nUnknown: ' + i.item.name;
             }

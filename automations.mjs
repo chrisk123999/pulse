@@ -25,7 +25,7 @@ let ignoredFolders = [
     'misc-monster-features'
 ];
 export async function updateItems() {
-    console.log('Updating automations command!');
+    console.log('Updating CPR, GPR, and MISC automations...');
     try {
         fs.rmSync('./files', {'recursive': true, 'force': true});
         await Promise.all([cprLink, miscLink, gpsLink].map(url => download(url, './files', {'extract': true})));
@@ -41,13 +41,13 @@ export async function updateItems() {
                 };
                 data.items.push(itemData);
             });
-        })
+        });
         let json = JSON.stringify(data);
         fs.rmSync('items.json', {'force': true});
         fs.writeFileSync('items.json', json, 'utf8');
-        console.log('There are ' + data.items.length + ' items!');
+        console.log('There are ' + data.items.length + ' CPR, GPR, & MISC items!');
     } catch (error) {
         console.error(error);
     }
-    console.log('Update complete.')
+    console.log('Update Complete!')
 }

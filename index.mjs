@@ -7,6 +7,7 @@ import {cprFeatureRequestEmbed} from './cpr/featureRequest.mjs';
 import {updateItems} from './automations.mjs';
 import {createRequire} from 'module';
 import {fileURLToPath} from 'url';
+import {updateMotoItems} from './moto.mjs';
 let srequire = createRequire(import.meta.url);
 let {token, cprGuildId, cprBugReports, cprFeatureRequests} = srequire('./config.json');
 let __filename = fileURLToPath(import.meta.url);
@@ -79,5 +80,7 @@ client.on(Events.ThreadCreate, async (thread, newlyCreated) => {
     }
 });
 await updateItems();
+await updateMotoItems();
 client.login(token);
 schedule.scheduleJob('0 8 * * *', updateItems);
+schedule.scheduleJob('5 8 * * 4', updateMotoItems);
