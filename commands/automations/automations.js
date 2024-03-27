@@ -14,7 +14,7 @@ let fuse = new Fuse(items, options);
 module.exports = {
     'data': new SlashCommandBuilder()
         .setName('automations')
-        .setDescription('Find an automation from CPR, GPS, and MISC.')
+        .setDescription('Find an automation from CPR, GPS, MISC, DDBI, and PISS.')
         .addStringOption(option =>
             option.setName('name')
                 .setDescription('The name of the item.')
