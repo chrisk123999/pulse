@@ -35,6 +35,7 @@ export async function updateItems() {
             let files = fs.readdirSync('./packItems/' + folder);
             files.forEach(file => {
                 let item = JSON.parse(fs.readFileSync('./packItems/' + folder + '/' + file, 'utf8').toString());
+                if (item._key.substring(0,8) === '!folders') return;
                 let itemData = {
                     'name': item.name,
                     'source': folder
