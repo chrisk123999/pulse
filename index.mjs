@@ -1,19 +1,20 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import schedule from 'node-schedule';
-import {Client, Collection, Events, GatewayIntentBits, EmbedBuilder} from 'discord.js';
+import {Client, Collection, Events, GatewayIntentBits, EmbedBuilder, time} from 'discord.js';
 import {cprBugReportEmbed} from './cpr/bugReport.mjs';
 import {cprFeatureRequestEmbed} from './cpr/featureRequest.mjs';
 import {updateItems} from './automations.mjs';
 import {createRequire} from 'module';
 import {fileURLToPath} from 'url';
 import {updateMotoItems} from './moto.mjs';
+import {cprOutOfTownEmbed} from './cpr/outOfTown.mjs';
 console.log('----- Starting -----');
 let srequire = createRequire(import.meta.url);
-let {token, cprGuildId, cprBugReports, cprFeatureRequests} = srequire('./config.json');
+let {token, cprGuildId, cprBugReports, cprFeatureRequests, cprSupport} = srequire('./config.json');
 let __filename = fileURLToPath(import.meta.url);
 let __dirname = path.dirname(__filename);
-let client = new Client({'intents': [GatewayIntentBits.Guilds]});
+let client = new Client({'intents': [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages]});
 client.commands = new Collection();
 let foldersPath = path.join(__dirname, 'commands');
 let commandFolders = fs.readdirSync(foldersPath);
@@ -80,8 +81,18 @@ client.on(Events.ThreadCreate, async (thread, newlyCreated) => {
         }
     }
 });
-await updateItems();
-await updateMotoItems();
+let lastMessage = 0;
+client.on(Events.MessageCreate, async message => {
+	if (message.guildId != cprGuildId) return;
+	if (message.channelId != cprSupport) return;
+	let currentTime = Date.now();
+	if (lastMessage + 1800000 > currentTime) return;
+	message.channel.send({'embeds': [cprOutOfTownEmbed]});
+	console.log('Out of Town embed created in support.');
+	lastMessage = currentTime;
+});
+//await updateItems();
+//await updateMotoItems();
 client.login(token);
 schedule.scheduleJob('0 8 * * *', updateItems);
 schedule.scheduleJob('5 8 * * 4', updateMotoItems);
