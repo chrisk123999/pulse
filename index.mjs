@@ -91,8 +91,8 @@ client.on(Events.MessageCreate, async message => {
 	console.log('Out of Town embed created in support.');
 	lastMessage = currentTime;
 });
-//await updateItems();
-//await updateMotoItems();
+await updateItems();
+await updateMotoItems();
 client.login(token);
-schedule.scheduleJob('0 8 * * *', updateItems);
-schedule.scheduleJob('5 8 * * 4', updateMotoItems);
+//schedule.scheduleJob('0 8 * * *', updateItems);
+//schedule.scheduleJob('5 8 * * 4', updateMotoItems);
