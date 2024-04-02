@@ -52,3 +52,4 @@ export async function updateItems() {
     }
     console.log('Update Complete!')
 }
+updateItems();
