@@ -80,4 +80,4 @@ export async function updateMotoItems() {
     }
     console.log('Update Complete!');
 }
-updateMotoItems();
+//updateMotoItems();
