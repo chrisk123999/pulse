@@ -81,6 +81,7 @@ client.on(Events.ThreadCreate, async (thread, newlyCreated) => {
         }
     }
 });
+/*
 let lastMessage = 0;
 client.on(Events.MessageCreate, async message => {
 	if (message.guildId != cprGuildId) return;
@@ -90,7 +91,7 @@ client.on(Events.MessageCreate, async message => {
 	message.channel.send({'embeds': [cprOutOfTownEmbed]});
 	console.log('Out of Town embed created in support.');
 	lastMessage = currentTime;
-});
+}); */
 await updateItems();
 await updateMotoItems();
 client.login(token);

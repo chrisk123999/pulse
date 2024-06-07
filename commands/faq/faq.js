@@ -78,20 +78,20 @@ let embeds = {
         'description': 'You may have updated D&DBeyond Importer, the newest version is system version is 3.0+ only and is incompatible with 2.4.1 and is not version locked. Downgrade your version.'
     },
     'enabled': {
-        'title': 'I updated to 3.0.4 D&D and can\'t enable the module:',
+        'title': 'I updated to 3.1.2 D&D and CPR 0.11.7, but it says it cannot be enabled due to issues with required dependencies:',
         'description': `You have other dependencies that are out of date. Current minimum versions:
-        **Midi-QOL**: 11.4.1
+        **Midi-QOL**: 11.4.34
         **DFred's Convenient Effects**: 6.0.3
-        **Warpgate**: 1.19.2
+        **Warpgate**: 1.19.2 (up to 1.closing)
         **Effect Macro**: 11.2.1
         **Template Macro**: 11.0.1
         **Sequencer**: 3.1.4
         **Token Attacher**: v4.5.15
-        **Build-A-Bonus**: 11.8.0
+        **Build-A-Bonus**: 11.8.0 (up to 11.10.6)
         **Socketlib**: 1.0.13
-        **Dynamic Active Effects**: 11.3.0.5
+        **Dynamic Active Effects**: 11.3.29
         **Automated Animations**: 4.2.71
-        **Times Up**: 11.3.1
+        **Times Up**: 11.3.12
         **NOTE**: JB2A modules are coded as optional because there are two options, however you need either the free or patreon version enabled for Automated Animations, and therefore this module, to function properly.`
     },
     '241': {
