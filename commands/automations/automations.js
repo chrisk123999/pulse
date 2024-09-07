@@ -28,16 +28,18 @@ module.exports = {
         }
         let message = '';
         for (let i of items) {
-            if (i.item.source.includes('cpr-')) {
+            if (i.item.source === 'cpr') {
                 message += '\nChris\'s Premades: ' + i.item.name;
-            } else if (i.item.source.includes('gps-')) {
+            } else if (i.item.source === 'gps') {
                 message += '\nGambit\'s Premades: ' + i.item.name;
-            } else if (i.item.source.includes('misc-')) {
+            } else if (i.item.source === 'misc') {
                 message += '\nMidi Item Showcase: ' + i.item.name;
             } else if (i.item.source === 'ddbi') {
                 message += '\nD&D Beyond Importer: ' + i.item.name;
             } else if (i.item.source === 'piss') {
                 message += '\nItems & Scripts Showcase: ' + i.item.name;
+            } else if (i.item.source === 'midi') {
+                message += '\nMidi-Qol Sample Items: ' + i.item.name;
             } else {
                 message += '\nUnknown: ' + i.item.name;
             }
