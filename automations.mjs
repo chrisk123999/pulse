@@ -40,7 +40,7 @@ let modules = [
     },
     {
         folder: 'cprBeta',
-        url: 'https://github.com/chrisk123999/chris-premades/releases/download/0.12.61/module.zip',
+        url: 'https://github.com/chrisk123999/chris-premades/releases/download/0.12.71/module.zip',
         ignored: [
             'cpr-class-feature-items',
             'cpr-feat-features',

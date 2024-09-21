@@ -30,6 +30,8 @@ module.exports = {
         for (let i of items) {
             if (i.item.source === 'cpr') {
                 message += '\nChris\'s Premades: ' + i.item.name;
+            } else if (i.item.source === 'cprBeta') {
+                message += '\nChris\'s Premades Beta: ' + i.item.name;
             } else if (i.item.source === 'gps') {
                 message += '\nGambit\'s Premades: ' + i.item.name;
             } else if (i.item.source === 'misc') {
