@@ -14,7 +14,7 @@ let fuse = new Fuse(items, options);
 module.exports = {
     'data': new SlashCommandBuilder()
         .setName('automations')
-        .setDescription('Find an automation from CPR, GPS, MISC, DDBI, and PISS.')
+        .setDescription('Find an automation from CPR, GPS, MISC, DDBI, RR, and PISS.')
         .addStringOption(option =>
             option.setName('name')
                 .setDescription('The name of the item.')
@@ -29,9 +29,9 @@ module.exports = {
         let message = '';
         for (let i of items) {
             if (i.item.source === 'cpr') {
-                message += '\nChris\'s Premades: ' + i.item.name;
-            } else if (i.item.source === 'cprBeta') {
-                message += '\nChris\'s Premades Beta: ' + i.item.name;
+                message += '\nCauldron of Plentiful Resources: ' + i.item.name;
+            } else if (i.item.source === 'rr') {
+                message += '\nRest Recovery: ' + i.item.name;
             } else if (i.item.source === 'gps') {
                 message += '\nGambit\'s Premades: ' + i.item.name;
             } else if (i.item.source === 'misc') {

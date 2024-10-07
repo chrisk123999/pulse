@@ -1,7 +1,6 @@
 import fs from 'fs';
 import download from 'download';
 import {extractPack} from '@foundryvtt/foundryvtt-cli';
-let data = {'items': []};
 let modules = [
     {
         folder: 'cpr',
@@ -11,19 +10,23 @@ let modules = [
             'cpr-feat-features',
             'cpr-homebrew-feature-items',
             'cpr-item-features',
-            'cpr-monster-features',
             'cpr-monster-feature-items',
             'cpr-race-feature-items',
             'cpr-spell-features',
             'cpr-summon-features',
             'cpr-summons'
+        ],
+        monster: [
+            'cpr-monster-features'
         ]
     },
     {
         folder: 'gps',
         url: 'https://github.com/gambit07/gambits-premades/releases/latest/download/module.zip',
         ignored: [
-            'gps-actors',
+            'gps-actors'
+        ],
+        monster: [
             'gps-monster-features'
         ]
     },
@@ -34,34 +37,56 @@ let modules = [
             'misc-actors',
             'misc-class-features-items',
             'misc-macros',
-            'misc-spell-items',
+            'misc-spell-items'
+        ],
+        monster: [
             'misc-monster-features'
-        ]
-    },
-    {
-        folder: 'cprBeta',
-        url: 'https://github.com/chrisk123999/chris-premades/releases/download/0.12.71/module.zip',
-        ignored: [
-            'cpr-class-feature-items',
-            'cpr-feat-features',
-            'cpr-homebrew-feature-items',
-            'cpr-item-features',
-            'cpr-monster-features',
-            'cpr-monster-feature-items',
-            'cpr-race-feature-items',
-            'cpr-spell-features',
-            'cpr-summon-features',
-            'cpr-summons'
         ]
     },
     {
         folder: 'midi',
         url: 'https://gitlab.com/tposney/midi-qol/raw/v11.6/package/midi-qol-v11.6.12.zip',
         ignored: [],
+        monster: [],
         extraPath: '/midi-qol'
     }
 ];
 export async function updateItems() {
+    let data = {items: [
+        {
+            name: 'Arcane Recovery',
+            source: 'rr'
+        },
+        {
+            name: 'Natural Recovery',
+            source: 'rr'
+        },
+        {
+            name: 'Song of Rest',
+            source: 'rr'
+        },
+        {
+            name: 'Chef',
+            source: 'rr'
+        },
+        {
+            name: 'Durable',
+            source: 'rr'
+        },
+        {
+            name: 'Periapt of Wound Closure',
+            source: 'rr'
+        },
+        {
+            name: 'Blessing of Wound Closure',
+            source: 'rr'
+        },
+        {
+            name: 'Black Blood Healing',
+            source: 'rr'
+        }
+    ]};
+    let monsterData = {items: []};
     console.log('Updating CPR, GPR, MISC, CPR, and Midi automations...');
     try {
         await Promise.all(modules.map(async module => {
@@ -72,21 +97,46 @@ export async function updateItems() {
             await Promise.all(packFolders.map(async folder => await extractPack(packPath + folder, folderName + '/packItems/' + folder)));
             await Promise.all(packFolders.map(async folder => {
                 let files = fs.readdirSync(folderName + '/packItems/' + folder);
-                await Promise.all(files.map(file => {
-                    let item = JSON.parse(fs.readFileSync(folderName + '/packItems/' + folder + '/' + file, 'utf8').toString());
-                    if (item._key.substring(0,8) === '!folders') return;
-                    let itemData = {
-                        name: item.name,
-                        source: module.folder
-                    };
-                    data.items.push(itemData);
-                }));
+                if (!module.monster.includes(folder)) {
+                    await Promise.all(files.map(file => {
+                        let item = JSON.parse(fs.readFileSync(folderName + '/packItems/' + folder + '/' + file, 'utf8').toString());
+                        if (item._key.substring(0,8) === '!folders') return;
+                        let itemData = {
+                            name: item.name,
+                            source: module.folder
+                        };
+                        data.items.push(itemData);
+                    }));
+                } else {
+                    let monsterNames = {};
+                    await Promise.all(files.map(file => {
+                        let item = JSON.parse(fs.readFileSync(folderName + '/packItems/' + folder + '/' + file, 'utf8').toString());
+                        if (!item._key.substring(0,8) === '!folders') return;
+                        monsterNames[item._id] = item.name;
+                    }));
+                    await Promise.all(files.map(file => {
+                        let item = JSON.parse(fs.readFileSync(folderName + '/packItems/' + folder + '/' + file, 'utf8').toString());
+                        if (item._key.substring(0,8) === '!folders') return;
+                        let monster = monsterNames[item.folder];
+                        if (!monster) return;
+                        let itemData = {
+                            name: item.name,
+                            source: module.folder,
+                            monster: monster
+                        };
+                        monsterData.items.push(itemData);
+                    }));
+                }
             }));
         }));
         let json = JSON.stringify(data);
         fs.rmSync('items.json', {force: true});
         fs.writeFileSync('items.json', json, 'utf8');
-        console.log('There are ' + data.items.length + ' CPR, GPR, MISC, CPR Beta, and Midi items!');
+        console.log('There are ' + data.items.length + ' automations!');
+        let monsterJSON = JSON.stringify(monsterData);
+        fs.rmSync('monsterItems.json', {force: true});
+        fs.writeFileSync('monsterItems.json', monsterJSON, 'utf8');
+        console.log('There are ' + monsterData.items.length + ' monster automations!');
     } catch (error) {
         console.error(error);
     }
