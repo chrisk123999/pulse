@@ -1,5 +1,6 @@
 let {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
-let items = require('../../monsterItems.json');
+let data = require('../../monsterItems.json');
+let items = data.items;
 let Fuse = require('fuse.js');
 let options = {
     keys: [
@@ -12,7 +13,7 @@ let options = {
 let fuse = new Fuse(items, options);
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('monsterautomation')
+        .setName('monsterautomations')
         .setDescription('Find monster automations from CPR, GPS, and MISC.')
         .addStringOption(option =>
             option.setName('name')

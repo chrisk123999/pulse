@@ -4,11 +4,11 @@ let data2 = require('../../motoItems.json');
 let items = data.items.concat(data2.items);
 let Fuse = require('fuse.js');
 let options = {
-    'keys': [
+    keys: [
         'name'
     ],
-    'includeScore': true,
-    'threshold': 0.3
+    includeScore: true,
+    threshold: 0.3
 };
 let fuse = new Fuse(items, options);
 module.exports = {
@@ -22,6 +22,7 @@ module.exports = {
     async execute(interaction) {
         let itemName = interaction.options.getString('name');
         let items = fuse.search(itemName, {'limit': 10});
+        console.log(items);
         if (!items.length) {
             await interaction.reply('No items found (' + itemName + ')!');
             return;
