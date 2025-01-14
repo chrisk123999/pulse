@@ -143,4 +143,3 @@ export async function updateItems() {
     }
     console.log('Update Complete!');
 }
-await updateItems();
