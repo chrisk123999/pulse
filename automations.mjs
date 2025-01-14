@@ -101,8 +101,10 @@ export async function updateItems() {
                     await Promise.all(files.map(file => {
                         let item = JSON.parse(fs.readFileSync(folderName + '/packItems/' + folder + '/' + file, 'utf8').toString());
                         if (item._key.substring(0,8) === '!folders') return;
+                        let rules = item.system?.source?.rules ?? '2014';
+                        let append = (rules === '2014' || rules === '') ? 'legacy' : rules === '2024' ? 'modern' : 'Unknown';
                         let itemData = {
-                            name: item.name,
+                            name: item.name + ' (' + append + ')',
                             source: module.folder
                         };
                         data.items.push(itemData);
