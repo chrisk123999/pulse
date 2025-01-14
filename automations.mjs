@@ -4,7 +4,7 @@ import {extractPack} from '@foundryvtt/foundryvtt-cli';
 let modules = [
     {
         folder: 'cpr',
-        url: 'https://github.com/chrisk123999/chris-premades/releases/latest/download/module.zip',
+        url: 'https://github.com/chrisk123999/chris-premades/releases/download/1.1.15/module.zip',
         ignored: [
             'cpr-class-feature-items',
             'cpr-feat-features',
@@ -101,11 +101,10 @@ export async function updateItems() {
                     await Promise.all(files.map(file => {
                         let item = JSON.parse(fs.readFileSync(folderName + '/packItems/' + folder + '/' + file, 'utf8').toString());
                         if (item._key.substring(0,8) === '!folders') return;
-                        let rules = item.system?.source?.rules ?? '2014';
-                        let append = (rules === '2014' || rules === '') ? 'legacy' : rules === '2024' ? 'modern' : 'Unknown';
                         let itemData = {
-                            name: item.name + ' (' + append + ')',
-                            source: module.folder
+                            name: item.name,
+                            source: module.folder,
+                            rules: item.system?.source?.rules === '2024' ? 'Modern' : 'Legacy'
                         };
                         data.items.push(itemData);
                     }));
@@ -144,3 +143,4 @@ export async function updateItems() {
     }
     console.log('Update Complete!');
 }
+await updateItems();

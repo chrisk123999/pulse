@@ -30,7 +30,7 @@ module.exports = {
         let message = '';
         for (let i of items) {
             if (i.item.source === 'cpr') {
-                message += '\nCauldron of Plentiful Resources: ' + i.item.name;
+                message += '\nCauldron of Plentiful Resources: ' + i.item.name + ' (' + i.item.rules + ')';
             } else if (i.item.source === 'rr') {
                 message += '\nRest Recovery: ' + i.item.name;
             } else if (i.item.source === 'gps') {
