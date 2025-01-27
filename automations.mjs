@@ -4,7 +4,7 @@ import {extractPack} from '@foundryvtt/foundryvtt-cli';
 let modules = [
     {
         folder: 'cpr',
-        url: 'https://github.com/chrisk123999/chris-premades/releases/download/1.1.17/module.zip',
+        url: 'https://github.com/chrisk123999/chris-premades/releases/download/1.1.22/module.zip',
         ignored: [
             'cpr-class-feature-items',
             'cpr-feat-features',
