@@ -1,0 +1,27 @@
+{
+  "name": "pulse",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisk123999/pulse.git"
+  },
+  "author": "chrisk123999",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chrisk123999/pulse/issues"
+  },
+  "homepage": "https://github.com/chrisk123999/pulse#readme",
+  "dependencies": {
+    "@foundryvtt/foundryvtt-cli": "^1.0.2",
+    "discord.js": "^14.12.1",
+    "download": "^8.0.0",
+    "fuse.js": "^7.0.0",
+    "node-schedule": "^2.1.1",
+    "parse-markdown-table": "^0.0.6"
+  }
+}
