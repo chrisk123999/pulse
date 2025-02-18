@@ -45,7 +45,7 @@ let modules = [
     },
     {
         folder: 'midi',
-        url: 'https://gitlab.com/tposney/midi-qol/raw/v12dnd4/package/midi-qol-v12.4.23.zip',
+        url: 'https://gitlab.com/tposney/midi-qol/raw/v12dnd4/package/midi-qol-v12.4.27.1.zip',
         ignored: [],
         monster: [],
         extraPath: '/midi-qol'
