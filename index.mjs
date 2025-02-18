@@ -1,14 +1,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import schedule from 'node-schedule';
+//import schedule from 'node-schedule';
 import {Client, Collection, Events, GatewayIntentBits, EmbedBuilder, time} from 'discord.js';
 import {cprBugReportEmbed} from './cpr/bugReport.mjs';
 import {cprFeatureRequestEmbed} from './cpr/featureRequest.mjs';
-import {updateItems} from './automations.mjs';
+//import {updateItems} from './automations.mjs';
 import {createRequire} from 'module';
 import {fileURLToPath} from 'url';
-import {updateMotoItems} from './moto.mjs';
-import {cprOutOfTownEmbed} from './cpr/outOfTown.mjs';
+//import {updateMotoItems} from './moto.mjs';
+//import {cprOutOfTownEmbed} from './cpr/outOfTown.mjs';
 console.log('----- Starting -----');
 let srequire = createRequire(import.meta.url);
 let {token, cprGuildId, cprBugReports, cprFeatureRequests, cprSupport} = srequire('./config.json');
@@ -92,8 +92,6 @@ client.on(Events.MessageCreate, async message => {
 	console.log('Out of Town embed created in support.');
 	lastMessage = currentTime;
 }); */
-await updateItems();
-await updateMotoItems();
+//await updateItems();
+//await updateMotoItems();
 client.login(token);
-//schedule.scheduleJob('0 8 * * *', updateItems);
-//schedule.scheduleJob('5 8 * * 4', updateMotoItems);

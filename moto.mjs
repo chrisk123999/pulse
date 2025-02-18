@@ -80,3 +80,4 @@ export async function updateMotoItems() {
     }
     console.log('Update Complete!');
 }
+await updateMotoItems();

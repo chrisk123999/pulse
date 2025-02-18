@@ -4,7 +4,7 @@ import {extractPack} from '@foundryvtt/foundryvtt-cli';
 let modules = [
     {
         folder: 'cpr',
-        url: 'https://github.com/chrisk123999/chris-premades/releases/download/1.1.33/module.zip',
+        url: 'https://github.com/chrisk123999/chris-premades/releases/latest/download/module.zip',
         ignored: [
             'cpr-class-feature-items',
             'cpr-feat-features',
@@ -43,13 +43,13 @@ let modules = [
             'misc-monster-features'
         ]
     },
-//    {
-//        folder: 'midi',
-//        url: 'https://gitlab.com/tposney/midi-qol/raw/v12dnd4/package/midi-qol-v12.4.23.zip',
-//        ignored: [],
-//        monster: [],
-//        extraPath: '/midi-qol'
-//    }
+    {
+        folder: 'midi',
+        url: 'https://gitlab.com/tposney/midi-qol/raw/v12dnd4/package/midi-qol-v12.4.23.zip',
+        ignored: [],
+        monster: [],
+        extraPath: '/midi-qol'
+    }
 ];
 export async function updateItems() {
     let data = {items: [
@@ -143,3 +143,4 @@ export async function updateItems() {
     }
     console.log('Update Complete!');
 }
+await updateItems();
