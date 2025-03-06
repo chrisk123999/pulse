@@ -24,7 +24,7 @@ let embeds = {
     },
     animation: {
         title: 'This feature/spell should have an animation, but I\'m not seeing it!',
-        description: 'Any animations be Eskiemoh typically require JB2A Patreon and Jack Kerouac\'s animated spell effects. The latter must be manually installed with the manifest URL from Chris\'s fork, which is updated for v12: <https://github.com/chrisk123999/animated-spell-effects-cartoon/releases/download/0.4.6/module.json>',
+        description: 'Any animations by Eskiemoh typically require JB2A Patreon and Jack Kerouac\'s animated spell effects. The latter must be manually installed with the manifest URL from Chris\'s fork, which is updated for v12: <https://github.com/chrisk123999/animated-spell-effects-cartoon/releases/download/0.4.6/module.json>',
         link: 'https://github.com/chrisk123999/chris-premades/wiki/FAQ#this-featurespell-should-have-an-animation-but-im-not-seeing-it'
     },
     scale: {
