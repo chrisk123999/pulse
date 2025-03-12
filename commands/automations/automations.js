@@ -34,9 +34,9 @@ module.exports = {
             } else if (i.item.source === 'rr') {
                 message += '\nRest Recovery: ' + i.item.name;
             } else if (i.item.source === 'gps') {
-                message += '\nGambit\'s Premades: ' + i.item.name;
+                message += '\nGambit\'s Premades: ' + i.item.name + ' (' + i.item.rules + ')';
             } else if (i.item.source === 'misc') {
-                message += '\nMidi Item Showcase: ' + i.item.name;
+                message += '\nMidi Item Showcase: ' + i.item.name + ' (' + i.item.rules + ')';
             } else if (i.item.source === 'ddbi') {
                 message += '\nD&D Beyond Importer: ' + i.item.name;
             } else if (i.item.source === 'piss') {
