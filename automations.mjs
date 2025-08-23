@@ -14,7 +14,8 @@ let modules = [
             'cpr-race-feature-items',
             'cpr-spell-features',
             'cpr-summon-features',
-            'cpr-summons'
+            'cpr-summons',
+            'cpr-summons-2024'
         ],
         monster: [
             'cpr-monster-features'
