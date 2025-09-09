@@ -14,6 +14,7 @@ let modules = [
             'cpr-race-feature-items',
             'cpr-spell-features',
             'cpr-summon-features',
+            'cpr-summon-features-2024',
             'cpr-summons',
             'cpr-summons-2024'
         ],
@@ -137,6 +138,52 @@ export async function updateItems() {
                 }
             }));
         }));
+        let generics = [
+            'Ability Drain',
+            'Activity on Effect Expiry',
+            'Activity on Rest',
+            'Advantage Damage Bonus',
+            'Damaging Aura',
+            'Auto Grapple',
+            'Auto Push',
+            'Berserk',
+            'Blood Frenzy',
+            'Bloodied Frenzy',
+            'Choose Damage',
+            'Contextual Bonus',
+            'Damage on Turn Start',
+            'Death Burst',
+            'Effect Immunity',
+            'Enlarge',
+            'Escape',
+            'Failed By Amount',
+            'Gaze',
+            'Keen Senses',
+            'Lifesteal',
+            'Martial Advantage',
+            'Movement Bonus Activity',
+            'Pack Tactics',
+            'Parry',
+            'Reduce',
+            'Reduce Maximum HP',
+            'Regeneration',
+            'Reroll Save On Damage',
+            'Roll for Activity',
+            'Special Item Use',
+            'Spell Turning',
+            'Suffocate',
+            'Sunlight Sensitivity',
+            'Surprise Attack',
+            'Swarm Damage',
+            'Teleport',
+            'Touch Damage',
+            'Undead Fortitude'
+        ];
+        monsterData.items.push(...generics.map(name => ({
+            name,
+            source: 'cpr',
+            monster: 'Generic Monster Feature'
+        })));
         let json = JSON.stringify(data);
         fs.rmSync('items.json', {force: true});
         fs.writeFileSync('items.json', json, 'utf8');
