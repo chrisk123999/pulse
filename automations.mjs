@@ -16,7 +16,8 @@ let modules = [
             'cpr-summon-features',
             'cpr-summon-features-2024',
             'cpr-summons',
-            'cpr-summons-2024'
+            'cpr-summons-2024',
+            'cpr-feat-features-2024'
         ],
         monster: [
             'cpr-monster-features'
