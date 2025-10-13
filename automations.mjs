@@ -94,7 +94,7 @@ export async function updateItems() {
     try {
         await Promise.all(modules.map(async module => {
             let folderName = './files/' + module.folder;
-            //await download(module.url, folderName, {extract: true});
+            await download(module.url, folderName, {extract: true});
             let packPath = module.extraPath ? folderName + module.extraPath + '/packs/' : folderName + '/packs/';
             let packFolders = fs.readdirSync(packPath).filter(i => !module.ignored.includes(i));
             await Promise.all(packFolders.map(async folder => {

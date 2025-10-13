@@ -22,7 +22,6 @@ module.exports = {
     async execute(interaction) {
         let itemName = interaction.options.getString('name');
         let items = fuse.search(itemName, {'limit': 10});
-        console.log(items);
         if (!items.length) {
             await interaction.reply('No items found (' + itemName + ')! If you are looking for a monster feature, use /monsterautomations.');
             return;
