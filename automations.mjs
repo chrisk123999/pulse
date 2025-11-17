@@ -20,7 +20,8 @@ let modules = [
             'cpr-feat-features-2024'
         ],
         monster: [
-            'cpr-monster-features'
+            'cpr-monster-features',
+            'cpr-monster-features-2024'
         ]
     },
     {
@@ -132,7 +133,8 @@ export async function updateItems() {
                         let itemData = {
                             name: item.name,
                             source: module.folder,
-                            monster: monster
+                            monster: monster,
+                            rules: item.system?.source?.rules === '2024' ? 'Modern' : 'Legacy'
                         };
                         monsterData.items.push(itemData);
                     }));
