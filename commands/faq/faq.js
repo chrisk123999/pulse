@@ -54,7 +54,7 @@ let embeds = {
         title: 'I enabled the weapon masteries automation but nothing happens!',
         description: 'Mastery must be set on the weapon used *and* the actor must have mastery of the base weapon type. Masteries can be set on the weapon proficiency window on the actor. Enabled edit mode on the actor\'s sheet and find their proficiencies, bottom right of the details page on the core sheet.',
         link: 'https://github.com/chrisk123999/chris-premades/wiki/FAQ#i-enabled-the-weapon-masteries-automation-but-nothing-happens',
-        img: ''
+        img: 'https://raw.githubusercontent.com/chrisk123999/pulse/refs/heads/main/images/weaponMastery.webp'
     }
 }
 module.exports = {
