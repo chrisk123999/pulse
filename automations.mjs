@@ -185,7 +185,8 @@ export async function updateItems() {
         monsterData.items.push(...generics.map(name => ({
             name,
             source: 'cpr',
-            monster: 'Generic Monster Feature'
+            monster: 'Generic Monster Feature',
+            rules: 'Both'
         })));
         let json = JSON.stringify(data);
         fs.rmSync('items.json', {force: true});

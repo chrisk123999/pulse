@@ -1,10 +1,13 @@
 let {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 function createEmbed(data) {
-    return new EmbedBuilder()
+    console.log(data);
+    let embed =new EmbedBuilder()
         .setColor('DarkGreen')
         .setTitle(data.title)
         .setDescription(data.description)
         .setURL(data.link);
+    if (data.img) embed.setImage(data.img);
+    return embed;
 }
 let embeds = {
     enable: {
@@ -46,6 +49,12 @@ let embeds = {
         title: 'I want to customize a CPR macro!',
         description: 'See <https://discord.com/channels/1089258451949064296/1280039612781432873>',
         link: 'https://github.com/chrisk123999/chris-premades'
+    },
+    mastery: {
+        title: 'I enabled the weapon masteries automation but nothing happens!',
+        description: 'Mastery must be set on the weapon used *and* the actor must have mastery of the base weapon type. Masteries can be set on the weapon proficiency window on the actor. Enabled edit mode on the actor\'s sheet and find their proficiencies, bottom right of the details page on the core sheet.',
+        link: 'https://github.com/chrisk123999/chris-premades/wiki/FAQ#i-enabled-the-weapon-masteries-automation-but-nothing-happens',
+        img: ''
     }
 }
 module.exports = {
@@ -79,7 +88,11 @@ module.exports = {
         .addSubcommand(subCommand =>
             subCommand
                 .setName('enable')
-                .setDescription('Links to module cannot be enabled FAQ.')),
+                .setDescription('Links to module cannot be enabled FAQ.'))
+        .addSubcommand(subCommand =>
+            subCommand
+                .setName('mastery')
+                .setDescription('Links to mastery FAQ.')),
     async execute(interaction) {
         let subCommand = interaction.options.getSubcommand();
         let embed = createEmbed(embeds[subCommand]);
