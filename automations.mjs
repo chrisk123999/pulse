@@ -1,17 +1,34 @@
 import fs from 'fs';
 import download from 'download';
 import {extractPack} from '@foundryvtt/foundryvtt-cli';
+let gpsPacks = {
+    ignored: [
+        'gps-actors'
+    ],
+    monster: [
+        'gps-monster-features'
+    ]
+};
+let miscPacks = {
+    ignored: [
+        'misc-actors-2024'
+    ],
+    monster: [
+        'misc-monster-features',
+        'misc-monster-features-2024'
+    ]
+};
 let modules = [
     {
         folder: 'cpr',
         url: 'https://github.com/chrisk123999/chris-premades/releases/latest/download/module.zip',
         ignored: [
             'cpr-class-feature-items',
+            'cpr-class-feature-items-2024',
+            'cpr-embedded-macro-sample-items',
             'cpr-feat-features',
-            'cpr-homebrew-feature-items',
+            'cpr-feature-items-2024',
             'cpr-item-features',
-            'cpr-monster-feature-items',
-            'cpr-race-feature-items',
             'cpr-spell-features',
             'cpr-summon-features',
             'cpr-summon-features-2024',
@@ -25,27 +42,37 @@ let modules = [
         ]
     },
     {
-        folder: 'gps',
-        url: 'https://github.com/gambit07/gambits-premades/releases/latest/download/module.zip',
+        folder: 'cpr14',
         ignored: [
-            'gps-actors'
+            'cpr-automation-items',
+            'cpr-embedded-macro-sample-items',
+            'cpr-summons-2014',
+            'cpr-summons-2024'
         ],
         monster: [
-            'gps-monster-features'
+            'cpr-monster-features-2014',
+            'cpr-monster-features-2024'
         ]
     },
     {
+        folder: 'gps',
+        url: 'https://github.com/gambit07/gambits-premades/releases/download/2.1.44/module.zip',
+        ...gpsPacks
+    },
+    {
+        folder: 'gps14',
+        url: 'https://github.com/gambit07/gambits-premades/releases/latest/download/module.zip',
+        ...gpsPacks
+    },
+    {
         folder: 'misc',
+        url: 'https://github.com/txm3278/midi-item-showcase-community/releases/download/1.6.15/module.zip',
+        ...miscPacks
+    },
+    {
+        folder: 'misc14',
         url: 'https://github.com/txm3278/midi-item-showcase-community/releases/latest/download/module.zip',
-        ignored: [
-            'misc-actors',
-            'misc-class-features-items',
-            'misc-macros',
-            'misc-spell-items'
-        ],
-        monster: [
-            'misc-monster-features'
-        ]
+        ...miscPacks
     },
     {
         folder: 'midi',
@@ -55,6 +82,11 @@ let modules = [
         extraPath: '/midi-qol'
     }
 ];
+async function getV14Url() {
+    let releases = JSON.parse(await download('https://api.github.com/repos/chrisk123999/chris-premades/releases'));
+    let release = releases.find(i => !i.draft && Number(i.tag_name.split('.')[0]) >= 2);
+    return 'https://github.com/chrisk123999/chris-premades/releases/download/' + release.tag_name + '/module.zip';
+}
 export async function updateItems() {
     let data = {items: [
         {
@@ -91,11 +123,11 @@ export async function updateItems() {
         }
     ]};
     let monsterData = {items: []};
-    console.log('Updating CPR, GPR, MISC, CPR, and Midi automations...');
+    console.log('Updating CPR, GPS, MISC (v13/v14), and Midi automations...');
     try {
         await Promise.all(modules.map(async module => {
             let folderName = './files/' + module.folder;
-            await download(module.url, folderName, {extract: true});
+            await download(module.url ?? await getV14Url(), folderName, {extract: true});
             let packPath = module.extraPath ? folderName + module.extraPath + '/packs/' : folderName + '/packs/';
             let packFolders = fs.readdirSync(packPath).filter(i => !module.ignored.includes(i));
             await Promise.all(packFolders.map(async folder => {
@@ -122,7 +154,7 @@ export async function updateItems() {
                     let monsterNames = {};
                     await Promise.all(files.map(file => {
                         let item = JSON.parse(fs.readFileSync(folderName + '/packItems/' + folder + '/' + file, 'utf8').toString());
-                        if (!item._key.substring(0,8) === '!folders') return;
+                        if (item._key.substring(0,8) !== '!folders') return;
                         monsterNames[item._id] = item.name;
                     }));
                     await Promise.all(files.map(file => {

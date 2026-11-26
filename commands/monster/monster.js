@@ -2,6 +2,7 @@ let {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 let data = require('../../monsterItems.json');
 let items = data.items;
 let Fuse = require('fuse.js');
+let {formatResults} = require('../../sources.js');
 let options = {
     keys: [
         'name',
@@ -21,31 +22,12 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
         let itemName = interaction.options.getString('name');
-        let items = fuse.search(itemName, {'limit': 10});
+        let items = fuse.search(itemName, {'limit': 20});
         if (!items.length) {
             await interaction.reply('No monster features found (' + itemName + ')!');
             return;
         }
-        let message = '';
-        for (let i of items) {
-            if (i.item.source === 'cpr') {
-                message += '\nCauldron of Plentiful Resources: ' + i.item.name + ' (' + i.item.rules + ' | ' + i.item.monster + ')';
-            } else if (i.item.source === 'rr') {
-                message += '\nRest Recovery: ' + i.item.name + ' (' + i.item.monster + ')';
-            } else if (i.item.source === 'gps') {
-                message += '\nGambit\'s Premades: ' + i.item.name + ' (' + i.item.monster + ')';
-            } else if (i.item.source === 'misc') {
-                message += '\nMidi Item Showcase: ' + i.item.name + ' (' + i.item.monster + ')';
-            } else if (i.item.source === 'ddbi') {
-                message += '\nD&D Beyond Importer: ' + i.item.name + ' (' + i.item.monster + ')';
-            } else if (i.item.source === 'piss') {
-                message += '\nItems & Scripts Showcase: ' + i.item.name + ' (' + i.item.monster + ')';
-            } else if (i.item.source === 'midi') {
-                message += '\nMidi-Qol Sample Items: ' + i.item.name + ' (' + i.item.monster + ')';
-            } else {
-                message += '\nUnknown: ' + i.item.name + ' (' + i.item.monster + ')';
-            }
-        }
+        let message = formatResults(items, true);
         let embed = new EmbedBuilder()
             .setColor('DarkGreen')
             .setTitle('Found Items (' + itemName + '):')
